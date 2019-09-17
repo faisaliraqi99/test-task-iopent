@@ -1,18 +1,19 @@
 import React from 'react';
 
-function Tree({data}) {
+import './Tree.css';
 
-  const sortedData = [...data.sort(compare)];
-
-  function compare(a,b) {
-    if (a.id < b.id) return -1;
-    if (a.id > b.id) return 1;
-    return 0;
-  }
-
-  const arrOfNums = [];
-
-  return sortedData.map(item => <h3 key={item.id}>{item.title}</h3>);
-}
+const Tree = ({ data }) => {
+  if (!data) return null;
+  return (
+    <>
+      {data.map((item) => {
+        return (<div className="parent" key={item.id}>
+          {item.title}
+          <Tree data={item.children} />
+        </div>)
+      })}
+    </>
+  );
+};
 
 export default Tree;
